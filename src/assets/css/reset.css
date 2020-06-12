@@ -1,0 +1,131 @@
+body,
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+dl,
+dt,
+a,
+input,
+button,
+textarea,
+select {
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+html,
+body {
+  font: 14px/1.5 Helvetica Neue, Helvetica, Arial, Microsoft Yahei, Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
+  color: #333;
+  background-color: #fff;
+  min-width: 1226px;
+}
+/* 公共样式 */
+.clearfix::before,
+.clearfix::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+/* 去除a的下划线 */
+a {
+  text-decoration: none;
+  color: #333;
+}
+/* 设置一个类，用于表示中间容器的宽度 */
+.w {
+  width: 1226px;
+  margin: 0 auto;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+ul,
+li {
+  list-style: none;
+}
+input {
+  font: normal;
+}
+input:focus,
+a:focus {
+  outline: none;
+}
+.btn {
+  display: inline-block;
+  width: 110px;
+  line-height: 30px;
+  text-align: center;
+  background-color: #FF6600;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+.btn-default {
+  background-color: #B0B0B0;
+  color: #ffffff;
+}
+.btn-large {
+  width: 202px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+}
+.btn-huge {
+  width: 300px;
+  height: 54px;
+  line-height: 54px;
+  font-size: 16px;
+}
+.btn-group .btn {
+  margin-right: 20px;
+}
+.btn-group .btn:last-child {
+  margin-right: 0;
+}
+/*
+  样式规范表
+*/
+.header-logo {
+  display: inline-block;
+  width: 55px;
+  height: 55px;
+  background-color: #f60;
+  overflow: hidden;
+}
+.header-logo a {
+  display: inline-block;
+  width: 110px;
+  height: 55px;
+}
+.header-logo a::before {
+  content: ' ';
+  display: inline-block;
+  width: 55px;
+  height: 55px;
+  background: url('/imgs/mi-logo.png') no-repeat center;
+  background-size: contain;
+  transition: margin 0.2s;
+}
+.header-logo a::after {
+  content: ' ';
+  display: inline-block;
+  width: 55px;
+  height: 55px;
+  background: url('/imgs/mi-home.png') no-repeat center;
+  background-size: contain;
+}
+.header-logo a:hover::before {
+  margin-left: -55px;
+  transition: margin 0.2s;
+}
