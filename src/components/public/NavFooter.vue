@@ -5,12 +5,13 @@
       <p>小米商城</p>
     </div>             
     <div class="footer-link">
-      <a href="http://rzi2016.online" target="_blank">rzi2016.online</a><span>|</span>
-      <a href="http://music.rzi2016.online" target="_blank">仿网易云播放器</a><span>|</span>
-      <a href="http://admin.rzi2016.online" target="_blank">电商后台管理系统</a><span>|</span>
-      <a href="http://jd.rzi2016.online" target="_blank">移动端老版本京东金融布局</a>
+      <a href="https://wuhuiluo.github.io/" target="_blank">我的个人博客</a>
+      <!-- <span>|</span>
+      <a href="https://wuhuiluo.github.io/" target="_blank">我的个人博客</a><span>|</span>
+      <a href="https://wuhuiluo.github.io/" target="_blank">我的个人博客</a><span>|</span>
+      <a href="https://wuhuiluo.github.io/" target="_blank">我的个人博客</a> -->
     </div>
-    <div class="copyright">Copyright ©2020 <span class="domain">rzi2016.online</span> All Rights Reserved.</div>
+    <div class="copyright">Copyright ©2020 <span class="domain">林间有风</span> All Rights Reserved.</div>
   </div>
 </template>
 <script>

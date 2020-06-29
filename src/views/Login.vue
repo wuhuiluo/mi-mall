@@ -1,11 +1,19 @@
 <template>
   <div class="login">
     <div class="login_h_panel">
-      <a href="/#/index"><img src="/imgs/login-logo.png" alt=""/></a>
+      <a href="/#/index">
+        <img src="/imgs/login-logo.png" alt />
+      </a>
     </div>
     <div class="login_banner_panel">
       <!-- 表单区域 -->
-      <el-form :model="loginForm" :rules="loginRules" ref="loginFormRef" label-width="0px" class="login_form">
+      <el-form
+        :model="loginForm"
+        :rules="loginRules"
+        ref="loginFormRef"
+        label-width="0px"
+        class="login_form"
+      >
         <div class="nav-tabs">
           <a href="javascript:;" class="checked">帐号登录</a>
           <span class="sep-line"></span>
@@ -29,7 +37,10 @@
         </el-form-item>
         <div class="tips">
           <div class="sms">手机短信登录/注册</div>
-          <div class="reg">立即注册<span>|</span>忘记密码？</div>
+          <div class="reg">
+            立即注册
+            <span>|</span>忘记密码？
+          </div>
         </div>
       </el-form>
     </div>
@@ -75,13 +86,23 @@ export default {
         if (!valid) {
           return
         }
+        if (valid) {
+          this.$message.success('登录成功')
+          localStorage.setItem('ms_username', this.loginForm.username)
+          this.$router.push('/')
+        } else {
+          this.$message.error('请输入账号和密码')
+          console.log('error submit!!')
+          return false
+        }
         await postLogin(this.loginForm)
         const data = await getUserInfo()
+        console.log(data)
         // session级别是浏览器进程杀掉才结束
         this.$cookies.set('userId', data.userId, 60 * 60 * 24 * 7)
-        this.$store.dispatch('saveUserName', data.username)
+        this.$store.dispatch('saveUserName', this.loginForm.username)
         this.$store.dispatch('saveCartCnt', data.cartCnt)
-        // 通过编程式导航跳转到后台主页
+        通过编程式导航跳转到后台主页
         this.$router.push({
           name: 'index',
           params: {

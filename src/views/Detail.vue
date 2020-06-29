@@ -24,7 +24,7 @@
           <div class="line"></div>
           <div class="item-addr">
             <span class="icon-loc"><i class="el-icon-location-outline"></i></span>
-            <div class="addr">北京 北京市 朝阳区 安定门街道</div>
+            <div class="addr">福建 福建省 晋江市 东石镇</div>
             <div class="stock">有现货</div>
           </div>
 
@@ -165,7 +165,7 @@ export default {
       if (notMatch) {
         this.illegalClick = true
         this.$message.warning({
-          message: '快滚！没货!',
+          message: '没货了',
           center: true,
           duration: 800,
           onClose: () => {

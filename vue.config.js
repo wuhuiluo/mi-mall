@@ -1,3 +1,4 @@
+const ENV = process.env.NODE_ENV;
 module.exports = {
   configureWebpack: {
     resolve: {
@@ -10,6 +11,7 @@ module.exports = {
       }
     }
   },
+  publicPath: ENV === "development" ? "" : "/baisijin.github.io/",
   productionSourceMap: false, // 隐藏打包后的源码
   outputDir: 'dist', //build输出目录
   assetsDir: 'assets', //静态资源目录（js, css, img）
@@ -20,6 +22,7 @@ module.exports = {
     port: '80',
     https: false, //是否使用https协议
     hotOnly: true, //是否开启热更新
+    disableHostCheck: true,
     proxy: {
       '/mi': {
         target: 'http://mi.rzi2016.online/mi/', //API服务器的地址

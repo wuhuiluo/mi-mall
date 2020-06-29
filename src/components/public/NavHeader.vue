@@ -45,7 +45,7 @@
         <div class="header-logo">
           <a href="/#/index"></a>
         </div>
-
+ 
         <!-- 中间服务项 -->
         <div class="header-menu">
           <ul class="nav">
@@ -109,6 +109,7 @@ export default {
     // 获取商品列表
     async _getProductList() {
       const data = await getNavItem()
+      console.log(data)
       data.forEach(e => {
         e.children.forEach(product => {
           product.img += '?thumb=1&w=160&h=110&f=webp&q=90'
@@ -150,7 +151,7 @@ export default {
       })
     },
     search() {
-      return this.$message.error('搜你妹，快滚！')
+      return this.$message.error('太对了哥，哥太对')
     }
   }
 }
@@ -287,7 +288,7 @@ export default {
   }
 }
 .el-input {
-  width: 300px;
+  width: 300px !important;
 }
 .el-button {
   background-color: #fff !important;
