@@ -1,189 +1,139 @@
 <template>
   <div class="login">
-    <div class="login_h_panel">
-      <a href="/#/index">
-        <img src="/imgs/login-logo.png" alt />
+    <div class="header">
+      <a href="/">
+        <img src="/imgs/login-logo.png" />
       </a>
     </div>
-    <div class="login_banner_panel">
-      <!-- 表单区域 -->
-      <el-form
-        :model="loginForm"
-        :rules="loginRules"
-        ref="loginFormRef"
-        label-width="0px"
-        class="login_form"
-      >
-        <div class="nav-tabs">
-          <a href="javascript:;" class="checked">帐号登录</a>
-          <span class="sep-line"></span>
-          <a href="javascript:;">扫码登录</a>
+    <div class="container">
+      <div class="login-box">
+        <img class="logo" src="/imgs/logo.png">
+        <div class="title">登陆页面</div>
+        <input placeholder="账号" type="text" v-model="loginForm.username" />
+        <input placeholder="密码" type="password" v-model="loginForm.password" />
+        <div class="denglu">
+          <el-button class="enter" round type="primary" @click="login">登陆</el-button>
         </div>
-        <!-- 用户名 -->
-        <el-form-item prop="username">
-          <el-input v-model="loginForm.username" placeholder="手机号"></el-input>
-        </el-form-item>
-
-        <!-- 密码 -->
-        <el-form-item prop="password">
-          <el-input v-model="loginForm.password" :type="pwdType" placeholder="密码">
-            <i slot="suffix" class="iconfont icon-showpassword" @click="showPwd"></i>
-          </el-input>
-        </el-form-item>
-
-        <!-- 按钮 -->
-        <el-form-item class="btns">
-          <el-button type="primary" @click="login">登录</el-button>
-        </el-form-item>
-        <div class="tips">
-          <div class="sms">手机短信登录/注册</div>
-          <div class="reg">
-            立即注册
-            <span>|</span>忘记密码？
-          </div>
-        </div>
-      </el-form>
+      </div>
+    </div>
+    <div class="footer">
+      <h1>吴辉洛的小米商城</h1>
     </div>
   </div>
 </template>
+
+
 <script>
-import { postLogin, getUserInfo } from 'network/request.js'
+import { postLogin, getUserInfo } from "../network/request.js";
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
-      username: '',
-      password: '',
-      userId: '',
       loginForm: {
-        username: 'rzcoding',
-        password: 'rzcoding'
+        username: "rzcoding",
+        password: "rzcoding"
       },
-
-      loginRules: {
-        username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
-          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
-        ],
-        password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 3, max: 16, message: '长度在 3 到 16 个字符', trigger: 'blur' }
-        ]
-      },
-
-      pwdType: 'password'
-    }
+      userId: ""
+    };
   },
+
   methods: {
-    showPwd() {
-      if (this.pwdType === 'password') {
-        this.pwdType = ''
-      } else {
-        this.pwdType = 'password'
-      }
-    },
-    login() {
-      this.$refs.loginFormRef.validate(async valid => {
-        if (!valid) {
-          return
-        }
-        if (valid) {
-          this.$message.success('登录成功')
-          localStorage.setItem('ms_username', this.loginForm.username)
-          this.$router.push('/')
-        } else {
-          this.$message.error('请输入账号和密码')
-          console.log('error submit!!')
-          return false
-        }
-        await postLogin(this.loginForm)
-        const data = await getUserInfo()
-        console.log(data)
-        // session级别是浏览器进程杀掉才结束
-        this.$cookies.set('userId', data.userId, 60 * 60 * 24 * 7)
-        this.$store.dispatch('saveUserName', this.loginForm.username)
-        this.$store.dispatch('saveCartCnt', data.cartCnt)
-        通过编程式导航跳转到后台主页
-        this.$router.push({
-          name: 'index',
-          params: {
-            from: 'login'
-          }
-        })
-      })
+    ...mapActions(['saveUserName']),
+
+    async login() {
+      await postLogin(this.loginForm);
+      const data = await getUserInfo();
+      console.log(data);
+      this.$cookies.set('userId', data.userId, 60 * 60 * 24 * 7)
+      this.$message({
+        message: "恭喜你,登陆成功",
+        type: "success",
+        center: true,
+        duration: 1000
+      });
+      this.saveUserName(data.username)
+      this.$router.push("/index");
     }
   }
-}
+};
 </script>
-<style lang='less' scoped>
+
+
+<style lang="less">
 .login {
-  width: 1130px;
-  height: 686px;
-  margin: 0 auto;
-  .login_h_panel {
-    height: 98px;
-    img {
-      width: auto;
-      height: 100%;
+  width: 100%;
+  height: 100%;
+  .footer {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+  }
+  .header {
+    height: 116px;
+    a {
+      width: 230px;
+      height: 116px;
+      display: block;
+      margin-left: 100px;
+      margin-top: 20px;
+      img {
+        width: 230px;
+        height: 116px;
+      }
     }
   }
-  .login_banner_panel {
-    height: 588px;
-    position: relative;
-    background-color: #ffffff;
-    .el-form {
-      box-sizing: border-box;
-      padding-left: 31px;
-      padding-right: 31px;
-      width: 410px;
-      height: 487px;
-      background-color: #ffffff;
-      position: absolute;
-      top: 30px;
-      right: 0px;
-      .nav-tabs {
-        padding: 27px 0 24px;
-        text-align: center;
-        font-size: 24px;
-        color: #666;
-        .sep-line {
-          width: 1px;
-          height: 24px;
-          margin: 0 42px;
-          border: 1px solid #e0e0e0;
-        }
-        .checked {
-          color: #f56600;
-        }
-      }
-      .el-form-item {
-        width: 346px;
-        height: 48px;
-        /deep/ .el-input__inner {
-          height: 48px;
-          line-height: 48px;
-        }
-      }
-      .el-button {
-        background-color: #ff6700;
-        border-color: #ff6700;
-        width: 100%;
-        height: 50px;
-        line-height: 1;
-      }
-      .tips {
-        margin-top: 14px;
-        display: flex;
-        justify-content: space-between;
-        font-size: 14px;
-        cursor: pointer;
-        .sms {
-          color: #ff6600;
-        }
-        .reg {
-          color: #999999;
-          span {
-            margin: 0 7px;
-          }
+  .container {
+    height: 576px;
+    background: url("/imgs/login-bg.jpg") no-repeat 50%;
+  }
+  .login-box {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    height: 400px;
+    position: absolute;
+    right: 50px;
+    bottom: 100px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(26, 26, 26, 0.1);
+    font-family: sans-serif;
+    .logo {
+       width: 96px;
+       height: 76px;
+       z-index: 99;
+       position: absolute;
+       top: -30px;
+    }
+    .title {
+      margin-top: 80px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 16px;
+      color: #444;
+      font-weight: 700;
+    }
+    input {
+      border: 0;
+      background: none;
+      display: inline-block;
+      margin: 20px auto;
+      text-align: center;
+      border: 2px solid #3498db;
+      padding: 14px 10px;
+      width: 200px;
+      outline: none;
+      border-radius: 24px;
+      transition: 0.25s;
+    }
+    input:focus {
+      width: 280px;
+    }
+    .denglu {
+      .enter {
+        &:hover {
+          width: 100px;
         }
       }
     }

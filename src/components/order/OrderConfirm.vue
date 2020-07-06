@@ -33,7 +33,7 @@
             <ul v-for="(item, index) in cartList" :key="index">
               <li>
                 <div class="good-name">
-                  <img :src="item.img" alt="" />
+                  <img :src="item.img" alt />
                   <span>{{ item.name }}</span>
                 </div>
                 <div class="good-price">{{ item.price }}元 x {{ item.quantity }}</div>
@@ -79,20 +79,36 @@
         </div>
       </div>
       <!-- 添加收货地址对话框 -->
-      <el-dialog :title="diglogTitle" :visible.sync="diglogVisable" width="39%" @close="diglogClose" :close-on-click-modal="false">
+      <el-dialog
+        :title="diglogTitle"
+        :visible.sync="diglogVisable"
+        width="39%"
+        @close="diglogClose"
+        :close-on-click-modal="false"
+      >
         <!-- 内容主体区域 -->
         <el-form :model="addrForm" :rules="formRules" ref="addrFormRef" label-width="80px">
           <el-form-item label="用户名" prop="username">
-            <el-input v-model="addrForm.username" style="width: 217px;" placeholder="姓名，如 rzcoding"></el-input>
+            <el-input v-model="addrForm.username" style="width: 217px;" placeholder="姓名，如 wuhuiluo"></el-input>
           </el-form-item>
           <el-form-item label="手机号" prop="mobile">
             <el-input v-model="addrForm.mobile" style="width: 217px;" placeholder="请填写正确的11位手机号码"></el-input>
           </el-form-item>
           <el-form-item label="所在地区" prop="addrZone">
-            <el-cascader v-model="addrForm.addrZone" :options="options" :props="{ expandTrigger: 'hover' }" @change="handleChange" clearable></el-cascader>
+            <el-cascader
+              v-model="addrForm.addrZone"
+              :options="options"
+              :props="{ expandTrigger: 'hover' }"
+              @change="handleChange"
+              clearable
+            ></el-cascader>
           </el-form-item>
           <el-form-item label="详细地址" prop="addrDetail">
-            <el-input type="textarea" v-model="addrForm.addrDetail" placeholder="街道、小区、楼牌号等，无须重复填写省市区"></el-input>
+            <el-input
+              type="textarea"
+              v-model="addrForm.addrDetail"
+              placeholder="街道、小区、楼牌号等，无须重复填写省市区"
+            ></el-input>
           </el-form-item>
           <!-- 底部按钮区域 -->
           <div class="addr-foot">
@@ -104,7 +120,7 @@
         <!--         <span slot="footer" class="dialog-footer">
           <el-button @click="diglogVisable = false">取 消</el-button>
           <el-button type="primary" @click="addrOnSubmit">确 定</el-button>
-        </span>  -->
+        </span>-->
       </el-dialog>
     </div>
   </div>
@@ -154,6 +170,11 @@ export default {
         addrDetail: [{ required: true, message: '请输入详细地址', trigger: 'blur' }]
       },
       options: [
+        {
+          value: '福建省',
+          label: '福建省',
+          children: [{ value: '泉州市', label: '泉州市', children: [{ value: '晋江', label: '晋江' }] }]
+        },
         {
           value: '北京',
           label: '北京',

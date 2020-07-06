@@ -1,5 +1,6 @@
-const ENV = process.env.NODE_ENV;
+
 module.exports = {
+  publicPath: process.env.NODE_ENV === "production" ? "/mall" : "/",
   configureWebpack: {
     resolve: {
       alias: {
@@ -11,7 +12,6 @@ module.exports = {
       }
     }
   },
-  publicPath: ENV === "development" ? "" : "/baisijin.github.io/",
   productionSourceMap: false, // 隐藏打包后的源码
   outputDir: 'dist', //build输出目录
   assetsDir: 'assets', //静态资源目录（js, css, img）

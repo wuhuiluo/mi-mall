@@ -40,7 +40,7 @@
           <div class="overlay" v-if="showSlide"></div>
           <div class="video" :class="{ slide: showSlide }">
             <span class="icon-close" @click="closeVideo"><i class="el-icon-close"></i></span>
-            <video id="video" src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7f49c1ccd75f76ec86b52c9ae4c4a082.mp4" muted autoplay controls="controls"></video>
+            <video id="video" src="https://vdept.bdstatic.com/4737716b337153755878456d6331656b/55787949556a5754/4a330ed1565e898e888b8c0c46074002b6f89aceb8e97928c76abb9900ee156a5b64877d57d508cf8137af983f9dec54.mp4?auth_key=1594025921-0-0-e653abcf569a894e5dd746ef08dd78ff" muted autoplay controls="controls"></video>
           </div>
         </div>
       </div>

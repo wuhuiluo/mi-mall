@@ -67,8 +67,24 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
   routes
+})
+router.beforeEach((to, from, next) => {
+  function getCookie(name) {
+    var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+    if (arr != null) {
+      // console.log(arr);
+      return unescape(arr[2]);
+    }
+    return null;
+  }
+  const data = getCookie('userId')
+  let isLogin = data ? true : false
+  if (to.path === '/login') {
+    next()
+  } else {
+    isLogin ? next() : next('/login')
+  }
 })
 
 export default router

@@ -7,26 +7,44 @@
         <!-- 左侧的导航 -->
         <ul class="nav-left">
           <li v-for="(item, index) in navLeft" :key="index">
-            <a href="javascript:;">{{ item }}<span class="line">|</span></a>
+            <a href="javascript:;">
+              {{ item }}
+              <span class="line">|</span>
+            </a>
           </li>
         </ul>
 
         <!-- 右侧导航栏 -->
         <ul class="nav-right">
           <li>
-            <a v-if="username" href="javascript:;">{{ username }}<span class="line">|</span></a>
+            <a v-if="username" href="javascript:;">
+              {{ username }}
+              <span class="line">|</span>
+            </a>
           </li>
           <li>
-            <a @click="logout" v-if="username" href="javascript:;">退出<span class="line">|</span></a>
+            <a @click="logout" v-if="username" href="javascript:;">
+              退出
+              <span class="line">|</span>
+            </a>
           </li>
           <li>
-            <a @click="goToOrder" v-if="username" href="javascript:;">我的订单<span class="line">|</span></a>
+            <a @click="goToOrder" v-if="username" href="javascript:;">
+              我的订单
+              <span class="line">|</span>
+            </a>
           </li>
           <li>
-            <a @click="login" v-if="!username" href="javascript:;">登录<span class="line">|</span></a>
+            <a @click="login" v-if="!username" href="javascript:;">
+              登录
+              <span class="line">|</span>
+            </a>
           </li>
           <li>
-            <a v-if="!username" href="javascript:;">注册<span class="line">|</span></a>
+            <a v-if="!username" href="javascript:;">
+              注册
+              <span class="line">|</span>
+            </a>
           </li>
           <li class="shop-cart">
             <a @click="goToCart" href="javascript:;">
@@ -45,15 +63,19 @@
         <div class="header-logo">
           <a href="/#/index"></a>
         </div>
- 
+
         <!-- 中间服务项 -->
         <div class="header-menu">
           <ul class="nav">
             <li class="show-goods" v-for="(item, index) in serviceList" :key="index">
-              <a href="#" @mouseover="selectProdu"> {{ item }}</a>
+              <a href="#" @mouseover="selectProdu">{{ item }}</a>
             </li>
-            <li class="other-goods"><a href="javascript:;">服务</a></li>
-            <li class="other-goods"><a href="javascript:;">社区</a></li>
+            <li class="other-goods">
+              <a href="javascript:;">服务</a>
+            </li>
+            <li class="other-goods">
+              <a href="javascript:;">社区</a>
+            </li>
 
             <!-- 隐藏的服务项商品列表 -->
             <div class="goods-info">
@@ -109,7 +131,7 @@ export default {
     // 获取商品列表
     async _getProductList() {
       const data = await getNavItem()
-      console.log(data)
+      // console.log(data)
       data.forEach(e => {
         e.children.forEach(product => {
           product.img += '?thumb=1&w=160&h=110&f=webp&q=90'
@@ -137,8 +159,16 @@ export default {
     // 退出
     async logout() {
       await postLogout()
-      this.$store.dispatch('saveUserName', '')
+      this.$store.dispatch('saveUserName','')
+      this.$cookies.set('userId', '')
       this.$store.dispatch('saveCartCnt', 0)
+      this.$router.push('/login')
+      this.$message({
+        message: '退出成功',
+        type: 'warning',
+        center: true,
+        duration: 1000
+      })
     },
     // hover切换curProductList
     selectProdu(e) {

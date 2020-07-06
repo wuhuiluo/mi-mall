@@ -118,11 +118,14 @@ export default {
       this.goodsInfo = data.goodsList[0]
       this.goodsAttrs = this.goodsInfo.goodsAttrs
       this.goodsAttrs.forEach(e => {
-        this.attrIds.push(e.attrId)
+        this.attrIds.push(e.attrId) //1278 1274
       })
     },
     // 选择产品属性匹配具体商品
     selectAttr(attrName, propId) {
+      console.log(propId)
+      console.log(this.attrIds)
+      console.log(this.attrIds.includes(propId))
       if (this.illegalClick || this.attrIds.includes(propId)) {
         return false
       }
@@ -137,7 +140,7 @@ export default {
         }
         newGoodsAttrs.push(goodsAttr)
       })
-
+      console.log(newGoodsAttrs)
       let notMatch = true
       this.productInfo.goodsList.forEach(goods => {
         // 遍历匹配商品属性
